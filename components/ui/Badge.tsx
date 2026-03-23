@@ -7,9 +7,11 @@ export function Badge({ children, variant = "default" }: BadgeProps) {
   const styles =
     variant === "accent"
       ? "bg-accent/10 text-accent"
-      : "bg-gray-100 text-gray-600";
+      : "bg-muted text-muted-foreground";
   return (
-    <span className={`inline-block text-xs font-medium px-2.5 py-1 rounded-full ${styles}`}>
+    <span
+      className={`inline-block text-[10px] font-medium tracking-wide px-3 py-1.5 rounded-full ${styles}`}
+    >
       {children}
     </span>
   );

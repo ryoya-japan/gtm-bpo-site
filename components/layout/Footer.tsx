@@ -3,50 +3,91 @@ import { navLinks, siteConfig } from "@/content/site";
 
 export function Footer() {
   return (
-    <footer className="bg-gray-950 text-gray-400">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          <div>
-            <p className="font-bold text-lg text-white mb-3">{siteConfig.name}</p>
-            <p className="text-sm leading-relaxed text-gray-400 max-w-xs">
-              Your execution-oriented partner for entering and growing in the Japanese market.
+    <footer className="bg-foreground text-background">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8">
+        {/* Large Typography Section */}
+        <div className="py-20 border-b border-background/10">
+          <p className="font-serif text-5xl sm:text-6xl lg:text-7xl leading-[1.1] tracking-tight text-balance max-w-4xl">
+            Ready to explore
+            <br />
+            <span className="italic">the Japanese market?</span>
+          </p>
+          <div className="mt-10">
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-3 text-lg font-medium text-background/80 hover:text-background transition-colors group"
+            >
+              <span>Get in touch</span>
+              <span className="inline-block transition-transform group-hover:translate-x-1">
+                &rarr;
+              </span>
+            </Link>
+          </div>
+        </div>
+
+        {/* Links Grid */}
+        <div className="py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
+          <div className="md:col-span-1">
+            <p className="font-serif text-2xl tracking-tight mb-4">
+              {siteConfig.name}
             </p>
-            <p className="mt-4 text-sm">
-              <a href={`mailto:${siteConfig.email}`} className="text-gray-400 hover:text-white transition-colors">
-                {siteConfig.email}
-              </a>
+            <p className="text-sm leading-relaxed text-background/60 max-w-xs">
+              Your execution-oriented partner for entering and growing in the
+              Japanese market.
             </p>
           </div>
+
           <div>
-            <p className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Navigation</p>
-            <ul className="space-y-2">
+            <p className="text-xs font-medium tracking-[0.2em] uppercase text-background/40 mb-6">
+              Navigation
+            </p>
+            <ul className="space-y-3">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-sm hover:text-white transition-colors">
+                  <Link
+                    href={link.href}
+                    className="text-sm text-background/70 hover:text-background transition-colors"
+                  >
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
+
           <div>
-            <p className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Services</p>
-            <ul className="space-y-2 text-sm">
+            <p className="text-xs font-medium tracking-[0.2em] uppercase text-background/40 mb-6">
+              Services
+            </p>
+            <ul className="space-y-3 text-sm text-background/70">
               <li>Market Research</li>
               <li>Go-to-Market Strategy</li>
               <li>Localization</li>
-              <li>Partnerships &amp; BD</li>
-              <li>E-commerce &amp; Retail</li>
-              <li>Operations &amp; BPO</li>
-              <li>Launch Execution</li>
+              <li>Partnerships</li>
+              <li>Operations</li>
             </ul>
           </div>
+
+          <div>
+            <p className="text-xs font-medium tracking-[0.2em] uppercase text-background/40 mb-6">
+              Contact
+            </p>
+            <a
+              href={`mailto:${siteConfig.email}`}
+              className="text-sm text-background/70 hover:text-background transition-colors"
+            >
+              {siteConfig.email}
+            </a>
+          </div>
         </div>
-        <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <p className="text-xs text-gray-500">
-            © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+
+        {/* Bottom Bar */}
+        <div className="py-8 border-t border-background/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <p className="text-xs text-background/40">
+            &copy; {new Date().getFullYear()} {siteConfig.name}. All rights
+            reserved.
           </p>
-          <p className="text-xs text-gray-600">
+          <p className="text-xs text-background/40">
             Japan Market Entry Partner
           </p>
         </div>

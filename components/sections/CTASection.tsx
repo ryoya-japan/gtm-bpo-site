@@ -16,33 +16,52 @@ export function CTASection({
   secondaryCTA = { label: "Explore Services", href: "/services" },
   theme = "dark",
 }: CTASectionProps) {
-  const bg =
+  const bgClass =
     theme === "accent"
       ? "bg-accent"
       : theme === "light"
-      ? "bg-gray-50 border-t border-gray-200"
-      : "bg-gray-950";
-  const textColor = theme === "light" ? "text-gray-900" : "text-white";
-  const subColor = theme === "light" ? "text-gray-600" : "text-gray-300";
+      ? "bg-muted"
+      : "bg-foreground";
+
+  const textClass = theme === "light" ? "text-foreground" : "text-background";
+  const subClass =
+    theme === "light" ? "text-muted-foreground" : "text-background/70";
 
   return (
-    <section className={`py-20 ${bg}`}>
+    <section className={`py-24 ${bgClass}`}>
       <Container>
-        <div className="max-w-2xl">
-          <h2 className={`text-3xl sm:text-4xl font-bold leading-tight ${textColor}`}>
+        <div className="max-w-3xl">
+          <h2
+            className={`font-serif text-4xl sm:text-5xl lg:text-6xl leading-[1.1] tracking-tight text-balance ${textClass}`}
+          >
             {title}
           </h2>
-          <p className={`mt-4 text-lg ${subColor}`}>{description}</p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-4">
-            <Button href={primaryCTA.href} variant="primary" size="lg">
+          <p className={`mt-6 text-lg leading-relaxed ${subClass}`}>
+            {description}
+          </p>
+          <div className="mt-10 flex flex-col sm:flex-row gap-4">
+            <Button
+              href={primaryCTA.href}
+              variant={theme === "light" ? "primary" : "outline"}
+              size="lg"
+              className={
+                theme !== "light"
+                  ? "border-background text-background hover:bg-background hover:text-foreground"
+                  : ""
+              }
+            >
               {primaryCTA.label}
             </Button>
             {secondaryCTA && (
               <Button
                 href={secondaryCTA.href}
-                variant="secondary"
+                variant="ghost"
                 size="lg"
-                className={theme !== "light" ? "border-gray-600 text-white hover:bg-gray-800 hover:text-white bg-transparent" : ""}
+                className={
+                  theme !== "light"
+                    ? "text-background/70 hover:text-background hover:bg-background/10"
+                    : ""
+                }
               >
                 {secondaryCTA.label}
               </Button>
