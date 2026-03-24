@@ -10,26 +10,42 @@ export function FAQAccordion({ faqs }: FAQAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <div className="divide-y divide-gray-200 border-t border-b border-gray-200">
+    <div className="divide-y divide-[#1a2040] border-t border-b border-[#1a2040]">
       {faqs.map((faq, index) => (
         <div key={index}>
           <button
-            className="w-full flex items-center justify-between py-5 text-left gap-4"
+            className="w-full flex items-center justify-between py-5 text-left gap-4 group"
             onClick={() => setOpenIndex(openIndex === index ? null : index)}
             aria-expanded={openIndex === index}
           >
-            <span className="font-medium text-gray-900 text-base">{faq.question}</span>
-            <svg
-              className={`w-5 h-5 text-gray-400 flex-shrink-0 transition-transform ${openIndex === index ? "rotate-180" : ""}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            <span
+              className={`font-heading font-semibold text-sm leading-snug transition-colors ${
+                openIndex === index ? "text-accent" : "text-white group-hover:text-accent"
+              }`}
+              style={{ letterSpacing: "-0.01em" }}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
+              {faq.question}
+            </span>
+            <div
+              className={`w-7 h-7 flex items-center justify-center flex-shrink-0 border transition-all ${
+                openIndex === index
+                  ? "border-accent text-accent bg-accent/10 rotate-180"
+                  : "border-[#1a2040] text-[#a0aec0]"
+              }`}
+              style={{ borderRadius: "2px" }}
+            >
+              <svg
+                className="w-4 h-4 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
           </button>
           {openIndex === index && (
-            <div className="pb-5 text-gray-600 leading-relaxed text-sm">
+            <div className="pb-5 text-[#a0aec0] leading-relaxed text-sm border-l-2 border-accent/30 pl-4 mb-2">
               {faq.answer}
             </div>
           )}

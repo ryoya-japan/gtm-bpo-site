@@ -3,52 +3,99 @@ import { navLinks, siteConfig } from "@/content/site";
 
 export function Footer() {
   return (
-    <footer className="bg-gray-950 text-gray-400">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <footer className="bg-surface-dark border-t border-[#1a2040] relative overflow-hidden">
+      {/* Subtle grid */}
+      <div className="absolute inset-0 hero-grid opacity-20 pointer-events-none" />
+
+      {/* Decorative JP text */}
+      <div className="absolute bottom-0 right-0 pointer-events-none select-none overflow-hidden">
+        <span className="jp-deco" style={{ fontSize: "200px", opacity: 0.025 }}>日本</span>
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          {/* Brand col */}
           <div>
-            <p className="font-bold text-lg text-white mb-3">{siteConfig.name}</p>
-            <p className="text-sm leading-relaxed text-gray-400 max-w-xs">
+            <div className="mb-4">
+              <p
+                className="font-heading font-bold text-3xl text-white mb-0.5"
+                style={{ letterSpacing: "-0.04em" }}
+              >
+                {siteConfig.name}
+              </p>
+              <p className="text-xs font-semibold tracking-widest uppercase text-[#a0aec0]">
+                Go-To Japan — by {siteConfig.company}
+              </p>
+            </div>
+            <p className="text-sm leading-relaxed text-[#a0aec0] max-w-xs mb-4">
               Your execution-oriented partner for entering and growing in the Japanese market.
             </p>
-            <p className="mt-4 text-sm">
-              <a href={`mailto:${siteConfig.email}`} className="text-gray-400 hover:text-white transition-colors">
+            <div className="space-y-1">
+              <p className="text-xs text-[#a0aec0] uppercase tracking-widest font-semibold">Contact</p>
+              <a
+                href={`mailto:${siteConfig.email}`}
+                className="text-sm text-accent hover:text-accent-light transition-colors font-medium"
+              >
                 {siteConfig.email}
               </a>
-            </p>
+            </div>
+            <div className="mt-2">
+              <p className="text-xs text-[#a0aec0]">{siteConfig.contactPerson}</p>
+            </div>
           </div>
+
+          {/* Navigation col */}
           <div>
-            <p className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Navigation</p>
+            <p className="font-semibold text-white mb-4 text-xs uppercase tracking-widest">Navigation</p>
             <ul className="space-y-2">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-sm hover:text-white transition-colors">
+                  <Link
+                    href={link.href}
+                    className="text-sm text-[#a0aec0] hover:text-white transition-colors hover:translate-x-1 inline-block"
+                  >
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
+
+          {/* Services col */}
           <div>
-            <p className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Services</p>
-            <ul className="space-y-2 text-sm">
-              <li>Market Research</li>
-              <li>Go-to-Market Strategy</li>
-              <li>Localization</li>
-              <li>Partnerships &amp; BD</li>
-              <li>E-commerce &amp; Retail</li>
-              <li>Operations &amp; BPO</li>
-              <li>Launch Execution</li>
+            <p className="font-semibold text-white mb-4 text-xs uppercase tracking-widest">Services</p>
+            <ul className="space-y-2 text-sm text-[#a0aec0]">
+              {[
+                "Market Research",
+                "Go-to-Market Strategy",
+                "Localization",
+                "Partnerships & BD",
+                "E-commerce & Retail",
+                "Operations & BPO",
+                "Launch Execution",
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-2">
+                  <span className="w-1 h-1 rounded-full bg-accent flex-shrink-0" />
+                  {item}
+                </li>
+              ))}
             </ul>
           </div>
         </div>
-        <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <p className="text-xs text-gray-500">
-            © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+
+        {/* Divider */}
+        <div className="section-divider mt-12 mb-8" />
+
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <p className="text-xs text-[#a0aec0]">
+            © {new Date().getFullYear()} {siteConfig.company}. All rights reserved.
           </p>
-          <p className="text-xs text-gray-600">
-            Japan Market Entry Partner
-          </p>
+          <div className="flex items-center gap-4">
+            <span className="hud-badge">
+              <span className="dot" />
+              Market: Japan
+            </span>
+          </div>
         </div>
       </div>
     </footer>

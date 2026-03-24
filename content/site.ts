@@ -1,9 +1,12 @@
 export const siteConfig = {
-  name: "Zenith Japan",
+  name: "GTJ",
+  fullName: "GTJ — Go-To Japan",
+  company: "Sekaichi.inc",
   tagline: "Launch and Grow in Japan",
   description: "We help overseas companies enter the Japanese market through local strategy, execution, partnerships, operations, and go-to-market support.",
-  url: "https://zenithjapan.com",
-  email: "hello@zenithjapan.com",
+  url: "https://gtj.sekaichi.org",
+  email: "momo@sekaichi.org",
+  contactPerson: "Hirai Momo",
   social: {
     linkedin: "#",
     twitter: "#",

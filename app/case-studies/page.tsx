@@ -13,27 +13,48 @@ export const metadata: Metadata = {
 export default function CaseStudiesPage() {
   return (
     <>
-      <section className="bg-gray-950 text-white py-20">
+      {/* Page Hero */}
+      <section className="bg-bg-secondary text-white py-20 relative overflow-hidden">
+        <div className="absolute inset-0 hero-grid opacity-50 pointer-events-none" />
+        <div
+          className="absolute top-0 right-0 w-96 h-96 rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%)", transform: "translate(30%, -30%)" }}
+        />
+        <div className="absolute right-0 bottom-0 pointer-events-none select-none overflow-hidden hidden lg:block">
+          <span className="jp-deco" aria-hidden="true" style={{ fontSize: "140px", opacity: 0.04 }}>実績</span>
+        </div>
         <Container>
-          <p className="text-sm font-semibold tracking-widest uppercase text-accent mb-5">Case Studies</p>
-          <h1 className="text-4xl sm:text-5xl font-bold leading-tight max-w-2xl">
-            Examples of what Japan market entry looks like in practice.
-          </h1>
-          <p className="mt-5 text-lg text-gray-300 max-w-xl leading-relaxed">
-            The following case studies illustrate the types of engagements we run and the outcomes we work toward. Specific client details are kept confidential.
+          <div className="relative z-10">
+            <p className="text-xs font-semibold tracking-widest uppercase text-accent mb-5 flex items-center gap-2">
+              <span className="w-6 h-px bg-accent" />
+              Case Studies
+            </p>
+            <h1
+              className="font-heading font-black text-white leading-tight max-w-2xl mb-5"
+              style={{ fontSize: "clamp(32px, 5vw, 60px)", letterSpacing: "-0.04em" }}
+            >
+              Examples of what Japan market entry looks like in practice.
+            </h1>
+            <p className="text-lg text-[#a0aec0] max-w-xl leading-relaxed">
+              The following case studies illustrate the types of engagements we run and the outcomes we work toward. Specific client details are kept confidential.
+            </p>
+          </div>
+        </Container>
+      </section>
+
+      {/* Note banner */}
+      <section className="py-5 bg-surface border-y border-gold/20">
+        <Container>
+          <p className="text-sm text-gold/80">
+            <strong className="text-gold">Note:</strong> The case studies below are illustrative examples based on the types of engagements we run. Client names and specific metrics have been anonymized or generalized. Content marked &quot;SAMPLE&quot; should be replaced with real case study data when available.
           </p>
         </Container>
       </section>
 
-      <section className="py-8 bg-amber-50 border-b border-amber-100">
-        <Container>
-          <p className="text-sm text-amber-800">
-            <strong>Note:</strong> The case studies below are illustrative examples based on the types of engagements we run. Client names and specific metrics have been anonymized or generalized. Content marked &quot;Sample&quot; should be replaced with real case study data when available.
-          </p>
-        </Container>
-      </section>
+      <div className="section-divider" />
 
-      <section className="py-24">
+      {/* Case Studies Grid */}
+      <section className="py-24 bg-bg-primary">
         <Container>
           <SectionHeader
             eyebrow="Engagements"

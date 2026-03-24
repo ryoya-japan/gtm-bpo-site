@@ -1,6 +1,9 @@
-# Zenith Japan — Japan Market Entry Partner Website
+# GTJ — Go-To Japan | Japan Market Entry Partner
+### by Sekaichi.inc
 
-A production-ready marketing website for a GTM-BPO business helping overseas companies launch and grow in Japan.
+A production-ready marketing website for GTJ (Go-To Japan), a GTM-BPO business by Sekaichi.inc helping overseas companies launch and grow in Japan.
+
+**Contact:** Hirai Momo — momo@sekaichi.org
 
 ## Tech Stack
 
@@ -8,6 +11,17 @@ A production-ready marketing website for a GTM-BPO business helping overseas com
 - **TypeScript**
 - **Tailwind CSS**
 - **Vercel** (deployment target)
+- **Google Fonts:** Syne (headings) + Inter (body)
+
+## Design System
+
+GTJ uses a premium Japanese cyberpunk/anime aesthetic:
+- **Background:** Deep black `#0a0a0f` and dark navy `#080b14`
+- **Primary accent:** Electric red `#ff2d55`
+- **Secondary accent:** Electric cyan `#00d4ff`
+- **Tertiary:** Gold/amber `#ffd60a`
+- **Text:** White `#ffffff` and gray `#a0aec0`
+- **Cards/surfaces:** `#0f1420` with borders `#1a2040`
 
 ## Getting Started
 
@@ -64,7 +78,7 @@ All user-facing text content is centralized:
 
 | File | Contents |
 |------|----------|
-| `content/site.ts` | Site name, tagline, email, navigation links |
+| `content/site.ts` | Site name, company, email, contact person, navigation links |
 | `content/services.ts` | All 8 service definitions (title, description, outcomes) |
 | `content/caseStudies.ts` | 6 case study entries (replace with real client stories) |
 | `content/faq.ts` | 12 FAQ question/answer pairs |
@@ -78,7 +92,7 @@ All user-facing text content is centralized:
 The following content is illustrative and should be replaced before launch:
 
 - **`content/caseStudies.ts`** — All 6 case studies are sample/placeholder. Replace with real client stories (keeping clients anonymous if needed).
-- **`content/site.ts`** — Update `siteConfig.name`, `email`, and social links.
+- **`content/site.ts`** — Update `siteConfig.url` and social links.
 - **`app/layout.tsx`** — Update Open Graph `url` field to your real domain.
 - **`public/favicon.ico`** — Replace with your real favicon.
 - **Contact form** (`app/api/contact/route.ts`) — Connect to Resend, Formspree, Slack, or another notification method.
@@ -87,9 +101,9 @@ The following content is illustrative and should be replaced before launch:
 
 ```
 ├── app/
-│   ├── layout.tsx              # Root layout with Header/Footer
+│   ├── layout.tsx              # Root layout with Header/Footer (Syne + Inter fonts)
 │   ├── page.tsx                # Home page
-│   ├── globals.css             # Global styles
+│   ├── globals.css             # Global styles + anime/cyberpunk animations
 │   ├── services/page.tsx       # Services page
 │   ├── how-we-work/page.tsx    # Process page
 │   ├── about/page.tsx          # About page
@@ -99,32 +113,33 @@ The following content is illustrative and should be replaced before launch:
 │   └── api/contact/route.ts    # Contact form API
 ├── components/
 │   ├── layout/
-│   │   ├── Header.tsx
-│   │   └── Footer.tsx
+│   │   ├── Header.tsx          # Glass morphism nav with mobile overlay
+│   │   └── Footer.tsx          # Dark footer with decorative JP text
 │   ├── ui/
-│   │   ├── Button.tsx
+│   │   ├── Button.tsx          # Neon red/cyan/gradient variants
 │   │   ├── Container.tsx
-│   │   ├── SectionHeader.tsx
-│   │   └── Badge.tsx
+│   │   ├── SectionHeader.tsx   # With accent bar decoration
+│   │   └── Badge.tsx           # Neon border pill badges
 │   ├── sections/
-│   │   ├── CTASection.tsx
-│   │   ├── ServiceCard.tsx
-│   │   ├── CaseStudyCard.tsx
-│   │   ├── ProcessStep.tsx
-│   │   └── FAQAccordion.tsx
+│   │   ├── CTASection.tsx      # Dark CTA with grid + glow
+│   │   ├── ServiceCard.tsx     # Corner brackets + step numbers
+│   │   ├── CaseStudyCard.tsx   # Cyan corner brackets variant
+│   │   ├── ProcessStep.tsx     # Game UI numbered steps
+│   │   └── FAQAccordion.tsx    # Dark accordion
 │   └── forms/
-│       └── ContactForm.tsx
+│       └── ContactForm.tsx     # Dark theme form
 ├── content/
-│   ├── site.ts                 # Site config and navigation
+│   ├── site.ts                 # GTJ / Sekaichi.inc config
 │   ├── services.ts             # Service definitions
 │   ├── caseStudies.ts          # Case study content
 │   └── faq.ts                  # FAQ content
 ├── lib/
-│   └── utils.ts
+│   ├── utils.ts
+│   └── useInView.ts            # IntersectionObserver hook for scroll animations
 ├── public/
-│   └── favicon.ico             # Replace with real favicon
+│   └── favicon.ico
 ├── next.config.mjs
-├── tailwind.config.ts
+├── tailwind.config.ts          # Custom GTJ color palette + animations
 ├── tsconfig.json
 └── README.md
 ```

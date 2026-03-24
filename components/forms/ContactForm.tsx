@@ -74,64 +74,71 @@ export function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center">
-        <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="card-dark corner-brackets-cyan rounded-xl p-8 text-center">
+        <div
+          className="w-12 h-12 border border-cyan/40 flex items-center justify-center mx-auto mb-4"
+          style={{ borderRadius: "2px" }}
+        >
+          <svg className="w-6 h-6 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="font-semibold text-gray-900 text-lg mb-2">Message received</h3>
-        <p className="text-gray-600 text-sm">We&apos;ll be in touch within 1-2 business days.</p>
+        <h3 className="font-heading font-bold text-white text-lg mb-2" style={{ letterSpacing: "-0.02em" }}>Message received</h3>
+        <p className="text-[#a0aec0] text-sm">We&apos;ll be in touch within 1-2 business days.</p>
       </div>
     );
   }
 
   const inputClass = (field: keyof FormData) =>
-    `w-full px-4 py-3 text-sm border rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-colors ${
-      errors[field] ? "border-red-400 bg-red-50" : "border-gray-300"
+    `w-full px-4 py-3 text-sm border rounded-lg bg-surface text-white placeholder-[#a0aec0]/50 focus:outline-none focus:ring-1 focus:ring-accent/50 focus:border-accent/60 transition-all ${
+      errors[field] ? "border-accent/60 bg-accent/5" : "border-[#1a2040]"
     }`;
+
+  const labelClass = "block text-xs font-semibold text-[#a0aec0] mb-1.5 uppercase tracking-wider";
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label className={labelClass}>
             Full Name <span className="text-accent">*</span>
           </label>
           <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} className={inputClass("fullName")} placeholder="Jane Smith" />
-          {errors.fullName && <p className="mt-1 text-xs text-red-600">{errors.fullName}</p>}
+          {errors.fullName && <p className="mt-1 text-xs text-accent">{errors.fullName}</p>}
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label className={labelClass}>
             Company Name <span className="text-accent">*</span>
           </label>
           <input type="text" name="company" value={formData.company} onChange={handleChange} className={inputClass("company")} placeholder="Acme Inc." />
-          {errors.company && <p className="mt-1 text-xs text-red-600">{errors.company}</p>}
+          {errors.company && <p className="mt-1 text-xs text-accent">{errors.company}</p>}
         </div>
       </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label className={labelClass}>
             Work Email <span className="text-accent">*</span>
           </label>
           <input type="email" name="email" value={formData.email} onChange={handleChange} className={inputClass("email")} placeholder="jane@company.com" />
-          {errors.email && <p className="mt-1 text-xs text-red-600">{errors.email}</p>}
+          {errors.email && <p className="mt-1 text-xs text-accent">{errors.email}</p>}
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">Website</label>
+          <label className={labelClass}>Website</label>
           <input type="url" name="website" value={formData.website} onChange={handleChange} className={inputClass("website")} placeholder="https://yourcompany.com" />
         </div>
       </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label className={labelClass}>
             Country / Region <span className="text-accent">*</span>
           </label>
           <input type="text" name="country" value={formData.country} onChange={handleChange} className={inputClass("country")} placeholder="United States" />
-          {errors.country && <p className="mt-1 text-xs text-red-600">{errors.country}</p>}
+          {errors.country && <p className="mt-1 text-xs text-accent">{errors.country}</p>}
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">Industry</label>
+          <label className={labelClass}>Industry</label>
           <select name="industry" value={formData.industry} onChange={handleChange} className={inputClass("industry")}>
             <option value="">Select industry</option>
             <option value="saas">SaaS / Software</option>
@@ -145,9 +152,10 @@ export function ContactForm() {
           </select>
         </div>
       </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">What are you looking for?</label>
+          <label className={labelClass}>What are you looking for?</label>
           <select name="lookingFor" value={formData.lookingFor} onChange={handleChange} className={inputClass("lookingFor")}>
             <option value="">Select primary need</option>
             <option value="market-research">Market Research / Validation</option>
@@ -160,7 +168,7 @@ export function ContactForm() {
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">Estimated Timeline</label>
+          <label className={labelClass}>Estimated Timeline</label>
           <select name="timeline" value={formData.timeline} onChange={handleChange} className={inputClass("timeline")}>
             <option value="">Select timeline</option>
             <option value="asap">As soon as possible</option>
@@ -170,8 +178,9 @@ export function ContactForm() {
           </select>
         </div>
       </div>
+
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1.5">
+        <label className={labelClass}>
           Message <span className="text-accent">*</span>
         </label>
         <textarea
@@ -182,14 +191,16 @@ export function ContactForm() {
           className={inputClass("message")}
           placeholder="Tell us about your business, your Japan goals, and any specific challenges you're facing."
         />
-        {errors.message && <p className="mt-1 text-xs text-red-600">{errors.message}</p>}
+        {errors.message && <p className="mt-1 text-xs text-accent">{errors.message}</p>}
       </div>
+
       {status === "error" && (
-        <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-4 py-3">
+        <p className="text-sm text-accent bg-accent/5 border border-accent/30 rounded-lg px-4 py-3">
           Something went wrong. Please try again or email us directly.
         </p>
       )}
-      <Button type="submit" size="lg" disabled={status === "submitting"} className="w-full sm:w-auto">
+
+      <Button type="submit" size="lg" variant="primary" disabled={status === "submitting"} className={`w-full sm:w-auto ${status !== "submitting" ? "btn-glow" : ""}`}>
         {status === "submitting" ? "Sending..." : "Send Message"}
       </Button>
     </form>
