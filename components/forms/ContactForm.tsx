@@ -56,10 +56,15 @@ export function ContactForm() {
     if (!validate()) return;
     setStatus("submitting");
     try {
-      const response = await fetch("/api/contact", {
+      const body = new URLSearchParams();
+      body.append("form-name", "contact");
+      (Object.keys(formData) as (keyof FormData)[]).forEach((key) => {
+        body.append(key, formData[key]);
+      });
+      const response = await fetch("/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString(),
       });
       if (response.ok) {
         setStatus("success");
@@ -97,7 +102,19 @@ export function ContactForm() {
   const labelClass = "block text-xs font-semibold text-[#a0aec0] mb-1.5 uppercase tracking-wider";
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-5">
+    <form
+      onSubmit={handleSubmit}
+      noValidate
+      className="space-y-5"
+      name="contact"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+    >
+      {/* Netlify Forms — hidden fields required for bot detection */}
+      <input type="hidden" name="form-name" value="contact" />
+      <p className="hidden">
+        <label>Do not fill this out: <input name="bot-field" /></label>
+      </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
           <label className={labelClass}>
