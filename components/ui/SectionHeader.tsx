@@ -21,16 +21,16 @@ export function SectionHeader({
     <div className={`${alignClass} ${className}`}>
       {eyebrow && (
         <p
-          className={`text-xs font-medium tracking-[0.2em] uppercase mb-4 ${
-            dark ? "text-accent-foreground/60" : "text-accent"
+          className={`text-xs font-mono tracking-widest uppercase mb-4 ${
+            dark ? "text-secondary" : "text-accent"
           }`}
         >
-          {eyebrow}
+          // {eyebrow}
         </p>
       )}
       <h2
-        className={`font-serif text-4xl sm:text-5xl lg:text-6xl leading-[1.1] tracking-tight text-balance ${
-          dark ? "text-accent-foreground" : "text-foreground"
+        className={`font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.1] tracking-tight text-balance ${
+          dark ? "text-foreground" : "text-foreground"
         }`}
       >
         {title}
@@ -38,7 +38,7 @@ export function SectionHeader({
       {description && (
         <p
           className={`mt-6 text-lg leading-relaxed max-w-2xl ${
-            dark ? "text-accent-foreground/70" : "text-muted-foreground"
+            dark ? "text-muted-foreground" : "text-muted-foreground"
           }`}
           style={align === "center" ? { margin: "1.5rem auto 0" } : {}}
         >

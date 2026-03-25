@@ -29,29 +29,24 @@ const initialData: FormData = {
 export function ContactForm() {
   const [formData, setFormData] = useState<FormData>(initialData);
   const [errors, setErrors] = useState<Partial<FormData>>({});
-  const [status, setStatus] = useState<
-    "idle" | "submitting" | "success" | "error"
-  >("idle");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const validate = (): boolean => {
     const newErrors: Partial<FormData> = {};
     if (!formData.fullName.trim()) newErrors.fullName = "Full name is required";
-    if (!formData.company.trim())
-      newErrors.company = "Company name is required";
+    if (!formData.company.trim()) newErrors.company = "Company name is required";
     if (!formData.email.trim()) newErrors.email = "Email is required";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
       newErrors.email = "Enter a valid email address";
     if (!formData.country.trim()) newErrors.country = "Country is required";
-    if (!formData.message.trim())
-      newErrors.message = "Please tell us about your project";
+    if (!formData.message.trim()) newErrors.message = "Please tell us about your project";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -83,44 +78,49 @@ export function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="bg-accent/10 border border-accent/20 rounded-2xl p-10 text-center">
-        <div className="w-14 h-14 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-5">
-          <svg
-            className="w-7 h-7 text-accent"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M5 13l4 4L19 7"
-            />
-          </svg>
+      <div className="relative bg-card border border-accent/30 rounded-2xl p-10 text-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-secondary/10" />
+        <div className="relative z-10">
+          <div className="w-16 h-16 bg-accent/20 border border-accent/30 rounded-2xl flex items-center justify-center mx-auto mb-5 neon-box">
+            <svg
+              className="w-8 h-8 text-accent"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </div>
+          <h3 className="font-display text-2xl font-semibold text-foreground mb-3">
+            Message received!
+          </h3>
+          <p className="text-muted-foreground">
+            We&apos;ll be in touch within 1-2 business days.
+          </p>
         </div>
-        <h3 className="font-serif text-2xl text-foreground mb-3">
-          Message received
-        </h3>
-        <p className="text-muted-foreground">
-          We&apos;ll be in touch within 1-2 business days.
-        </p>
       </div>
     );
   }
 
   const inputClass = (field: keyof FormData) =>
-    `w-full px-5 py-4 text-sm border rounded-xl bg-card text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-300 ${
+    `w-full px-5 py-4 text-sm border rounded-xl bg-muted text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent focus:bg-background transition-all duration-300 ${
       errors[field]
-        ? "border-red-400 bg-red-50"
+        ? "border-red-400 bg-red-500/10"
+        : focusedField === field
+        ? "border-accent bg-background"
         : "border-border hover:border-accent/30"
     }`;
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-2">
+        <div className="group">
+          <label className="block text-sm font-medium text-foreground mb-2 group-focus-within:text-accent transition-colors">
             Full Name <span className="text-accent">*</span>
           </label>
           <input
@@ -128,15 +128,17 @@ export function ContactForm() {
             name="fullName"
             value={formData.fullName}
             onChange={handleChange}
+            onFocus={() => setFocusedField("fullName")}
+            onBlur={() => setFocusedField(null)}
             className={inputClass("fullName")}
             placeholder="Jane Smith"
           />
           {errors.fullName && (
-            <p className="mt-2 text-xs text-red-600">{errors.fullName}</p>
+            <p className="mt-2 text-xs text-red-400 font-mono">{errors.fullName}</p>
           )}
         </div>
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-2">
+        <div className="group">
+          <label className="block text-sm font-medium text-foreground mb-2 group-focus-within:text-accent transition-colors">
             Company Name <span className="text-accent">*</span>
           </label>
           <input
@@ -144,17 +146,19 @@ export function ContactForm() {
             name="company"
             value={formData.company}
             onChange={handleChange}
+            onFocus={() => setFocusedField("company")}
+            onBlur={() => setFocusedField(null)}
             className={inputClass("company")}
             placeholder="Acme Inc."
           />
           {errors.company && (
-            <p className="mt-2 text-xs text-red-600">{errors.company}</p>
+            <p className="mt-2 text-xs text-red-400 font-mono">{errors.company}</p>
           )}
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-2">
+        <div className="group">
+          <label className="block text-sm font-medium text-foreground mb-2 group-focus-within:text-accent transition-colors">
             Work Email <span className="text-accent">*</span>
           </label>
           <input
@@ -162,15 +166,17 @@ export function ContactForm() {
             name="email"
             value={formData.email}
             onChange={handleChange}
+            onFocus={() => setFocusedField("email")}
+            onBlur={() => setFocusedField(null)}
             className={inputClass("email")}
             placeholder="jane@company.com"
           />
           {errors.email && (
-            <p className="mt-2 text-xs text-red-600">{errors.email}</p>
+            <p className="mt-2 text-xs text-red-400 font-mono">{errors.email}</p>
           )}
         </div>
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-2">
+        <div className="group">
+          <label className="block text-sm font-medium text-foreground mb-2 group-focus-within:text-accent transition-colors">
             Website
           </label>
           <input
@@ -178,14 +184,16 @@ export function ContactForm() {
             name="website"
             value={formData.website}
             onChange={handleChange}
+            onFocus={() => setFocusedField("website")}
+            onBlur={() => setFocusedField(null)}
             className={inputClass("website")}
             placeholder="https://yourcompany.com"
           />
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-2">
+        <div className="group">
+          <label className="block text-sm font-medium text-foreground mb-2 group-focus-within:text-accent transition-colors">
             Country / Region <span className="text-accent">*</span>
           </label>
           <input
@@ -193,21 +201,25 @@ export function ContactForm() {
             name="country"
             value={formData.country}
             onChange={handleChange}
+            onFocus={() => setFocusedField("country")}
+            onBlur={() => setFocusedField(null)}
             className={inputClass("country")}
             placeholder="United States"
           />
           {errors.country && (
-            <p className="mt-2 text-xs text-red-600">{errors.country}</p>
+            <p className="mt-2 text-xs text-red-400 font-mono">{errors.country}</p>
           )}
         </div>
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-2">
+        <div className="group">
+          <label className="block text-sm font-medium text-foreground mb-2 group-focus-within:text-accent transition-colors">
             Industry
           </label>
           <select
             name="industry"
             value={formData.industry}
             onChange={handleChange}
+            onFocus={() => setFocusedField("industry")}
+            onBlur={() => setFocusedField(null)}
             className={inputClass("industry")}
           >
             <option value="">Select industry</option>
@@ -223,14 +235,16 @@ export function ContactForm() {
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-2">
+        <div className="group">
+          <label className="block text-sm font-medium text-foreground mb-2 group-focus-within:text-accent transition-colors">
             What are you looking for?
           </label>
           <select
             name="lookingFor"
             value={formData.lookingFor}
             onChange={handleChange}
+            onFocus={() => setFocusedField("lookingFor")}
+            onBlur={() => setFocusedField(null)}
             className={inputClass("lookingFor")}
           >
             <option value="">Select primary need</option>
@@ -243,14 +257,16 @@ export function ContactForm() {
             <option value="full-service">Full Market Entry Support</option>
           </select>
         </div>
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-2">
+        <div className="group">
+          <label className="block text-sm font-medium text-foreground mb-2 group-focus-within:text-accent transition-colors">
             Estimated Timeline
           </label>
           <select
             name="timeline"
             value={formData.timeline}
             onChange={handleChange}
+            onFocus={() => setFocusedField("timeline")}
+            onBlur={() => setFocusedField(null)}
             className={inputClass("timeline")}
           >
             <option value="">Select timeline</option>
@@ -261,25 +277,27 @@ export function ContactForm() {
           </select>
         </div>
       </div>
-      <div>
-        <label className="block text-sm font-medium text-foreground mb-2">
+      <div className="group">
+        <label className="block text-sm font-medium text-foreground mb-2 group-focus-within:text-accent transition-colors">
           Message <span className="text-accent">*</span>
         </label>
         <textarea
           name="message"
           value={formData.message}
           onChange={handleChange}
+          onFocus={() => setFocusedField("message")}
+          onBlur={() => setFocusedField(null)}
           rows={5}
           className={inputClass("message")}
           placeholder="Tell us about your business, your Japan goals, and any specific challenges you're facing."
         />
         {errors.message && (
-          <p className="mt-2 text-xs text-red-600">{errors.message}</p>
+          <p className="mt-2 text-xs text-red-400 font-mono">{errors.message}</p>
         )}
       </div>
       {status === "error" && (
-        <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-5 py-4">
-          Something went wrong. Please try again or email us directly.
+        <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/30 rounded-xl px-5 py-4 font-mono">
+          // Error: Something went wrong. Please try again or email us directly.
         </p>
       )}
       <Button
@@ -288,7 +306,19 @@ export function ContactForm() {
         disabled={status === "submitting"}
         className="w-full sm:w-auto"
       >
-        {status === "submitting" ? "Sending..." : "Send Message"}
+        {status === "submitting" ? (
+          <>
+            <span className="w-4 h-4 border-2 border-accent-foreground/30 border-t-accent-foreground rounded-full animate-spin" />
+            Sending...
+          </>
+        ) : (
+          <>
+            Send Message
+            <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </>
+        )}
       </Button>
     </form>
   );
